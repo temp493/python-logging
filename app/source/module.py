@@ -75,7 +75,7 @@ def set_logger(module_name, log_path):
     fileHandler.setFormatter(formatter)
     emailHandler.setFormatter(formatter)
 
-    logging.basicConfig(level=logging.NOTSET)
+    logger.setLevel(logging.DEBUG)
     streamHandler.setLevel(logging.INFO)
     fileHandler.setLevel(logging.DEBUG)
     emailHandler.setLevel(logging.WARNING)
