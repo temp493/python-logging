@@ -83,3 +83,11 @@ loggingの元々の設定でなぜか出力されてしまう。(`logger.info("i
 
 いい例が見つからず、今回は再現できなかったが、実際にはライブラリから出力されてくるログも一緒に表示されてしまう。
 (`logging.basicConfig`を触ってしまったからか？)
+
+## 解決
+
+`logging.basicConfig(level=logging.NOTSET)`を`loggger.setLevel(logging.DEBUG)`に変更する。
+
+これまで、`logger.setLevel(logging.NOTSET)`は試していたが、その際には動作しなかった。
+
+`logger.setLevel(0)`だとルートロガーの既定設定(`logging.WARNING`)が優先され、logger.setLevel(1)以上で上書きできるような挙動だった。
