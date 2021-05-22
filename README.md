@@ -10,7 +10,10 @@ cd python-logging/
 ```
 
 `/app/.env`を用意する。
-メール送信用のハンドラで用いるデータを定義する。
+メール送信用のハンドラで用いる変数を定義する。
+
+ただし、今回の問題とは本質的には関係ないといえばないため、無視してもいい。
+その場合、`/app/source/module.py`の`emailHandler`関係のコードをコメントアウトしておく。
 
 ```ini:/app/.env
 from_gmail="example@gmail.com"
@@ -42,8 +45,8 @@ python /app/main.py
 
 ## 試したこと
 
-ハンドラの設定でbasicConfigを上書きできないので、仕方なく、`module.py`78行目あたりで`logging.basicConfig(level=logging.NOTSET)`とした。
-これで、より高レベルの設定を上書きできるらしく、上記の出力を得られた。
+ハンドラのレベル設定がbasicConfigのレベル設定(既定:WARNING)に負ける(？)ため、仕方なく`module.py`78行目あたりで`logging.basicConfig(level=logging.NOTSET)`とした。
+これで、より高レベルの設定で上書きできるらしく、希望通りの出力を得られた。
 
 ## 問題点
 
@@ -73,7 +76,8 @@ WARNING:source.script2:warning
 2021-05-22 03:23:39,832 [WARNING] (script2.py | main | 9) warning
 ```
 
-loggingのもとの設定でなぜか出力されてしまう。
+loggingの元々の設定でなぜか出力されてしまう。(`logger.info("info")`でなく`logging.info("info")`とtypoしたような挙動？)
+理由がわからないのが1点。
 
 ### 2.ライブラリからのログ出力
 
